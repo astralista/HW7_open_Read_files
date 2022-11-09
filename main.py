@@ -38,3 +38,5 @@ with open('recipes.txt', 'rt') as file:
         departments.append(dep)
 
 print(departments)
+
+print('hello')
