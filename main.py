@@ -18,14 +18,14 @@ with open('recipes.txt', 'r') as file:
 def get_shop_list_by_dishes(dishes, count):
     dishes_ingr = []
 
-    for j in dishes:
-        for i in cook_book[j]:
+    for dish in dishes:
+        for i in cook_book[dish]:
             dishes_ingr.append(i)
 
     for i in dishes_ingr:
         i['quantity'] = int(i['quantity']) * count
 
-    
+
     return print(*dishes_ingr)
 
 
