@@ -14,20 +14,20 @@ with open('recipes.txt', 'r') as file:
         rcps = {recipe_name: ingridients}
         cook_book.update(rcps)
 
-# print(cook_book)
-#
-#
-#
-def get_shop_list_by_dishes(dishes):
-    dishes_ingr = {}
-    for key in cook_book:
-        if dishes == key:
-            for i in cook_book[key]:
-                for k in i[key]:
-                    print(k)
-    # return dishes_ingr
 
-print(get_shop_list_by_dishes('Омлет'))
+def get_shop_list_by_dishes(dishes, count):
+    dishes_ingr = []
 
-# print(cook_book['Омлет'][0])
+    for j in dishes:
+        for i in cook_book[j]:
+            dishes_ingr.append(i)
+
+    for i in dishes_ingr:
+        i['quantity'] = int(i['quantity']) * count
+
+    
+    return print(*dishes_ingr)
+
+
+print(get_shop_list_by_dishes(['Омлет', 'Запеченный картофель'], 1))
 
