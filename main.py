@@ -1,3 +1,5 @@
+import os
+
 with open('recipes.txt', 'r') as file:
     cook_book = {}
     for line in file:
@@ -22,9 +24,25 @@ def get_shop_list_by_dishes(dishes, count):
             for x in ingrs:
                 ingrs = list(x.values())
                 name, measure, quantity = ingrs
-                dishes_list.update({name: {'measure': int(measure)*count,
+                dishes_list.update({name: {'measure': int(measure) * count,
                                            'quantity': quantity}})
 
     return dishes_list
+# print(get_shop_list_by_dishes(['Омлет', 'Фахитос'], 2))
 
-print(get_shop_list_by_dishes(['Омлет', 'Фахитос'], 2))
+inputs = []
+lenth1 = sum(1 for line in open('sorted/1.txt', 'r'))
+print(lenth1)
+
+for file in os.listdir('sorted'):
+    if file.endswith('.txt'):
+        inputs.append(os.path.join('sorted', file))
+
+print(inputs)
+with open('merged_file.txt', 'w') as outfile:
+    for fname in inputs:
+        with open(fname, encoding="utf-8", errors='ignore') as infile:
+
+            outfile.writelines(f'\n{fname}\n')
+            outfile.writelines(f'{lenth1}\n')
+            outfile.write(infile.read())
