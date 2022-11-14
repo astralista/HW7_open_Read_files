@@ -30,19 +30,31 @@ def get_shop_list_by_dishes(dishes, count):
     return dishes_list
 # print(get_shop_list_by_dishes(['Омлет', 'Фахитос'], 2))
 
-inputs = []
-lenth1 = sum(1 for line in open('sorted/1.txt', 'r'))
-print(lenth1)
+# inputs = []
+# for file in os.listdir('sorted'):
+#     if file.endswith('.txt'):
+#         inputs.append(os.path.join('sorted', file))
 
+dir_name = 'sorted'
+
+list_of_files = filter( lambda x: os.path.isfile(os.path.join('sorted', x)),
+                        os.listdir('sorted') )
+
+# list_of_files = sorted(list_of_files,
+#                         key=lambda x: os.stat(os.path.join('sorted', x)).st_size)
+# print(list_of_files)
+inputs = []
 for file in os.listdir('sorted'):
     if file.endswith('.txt'):
-        inputs.append(os.path.join('sorted', file))
-
+        inputs.append(sorted(list_of_files,
+                        key=lambda x: os.stat(os.path.join('sorted', x)).st_size))
 print(inputs)
 with open('merged_file.txt', 'w') as outfile:
-    for fname in inputs:
+    for fname in list_of_files:
         with open(fname, encoding="utf-8", errors='ignore') as infile:
-
-            outfile.writelines(f'\n{fname}\n')
-            outfile.writelines(f'{lenth1}\n')
-            outfile.write(infile.read())
+            count = int()
+            for line in infile:
+                count += 1
+            infile.seek(0)
+            text = infile.read()
+            outfile.writelines(f'{fname}\n{count}\n{text}\n')
