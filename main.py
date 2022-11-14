@@ -30,27 +30,25 @@ def get_shop_list_by_dishes(dishes, count):
     return dishes_list
 # print(get_shop_list_by_dishes(['Омлет', 'Фахитос'], 2))
 
-# inputs = []
-# for file in os.listdir('sorted'):
-#     if file.endswith('.txt'):
-#         inputs.append(os.path.join('sorted', file))
+# есть проблемка:
+# вот этот код может отсортировать файлы по размеру(что мне и нужно),
+# но в список они сохраняются без указания папки
 
-dir_name = 'sorted'
+# list_of_files = filter(lambda x: os.path.isfile(os.path.join('sorted', x)), os.listdir('sorted'))
+# list_of_files = sorted(list_of_files, key=lambda x: os.stat(os.path.join('sorted', x)).st_size)
 
-list_of_files = filter( lambda x: os.path.isfile(os.path.join('sorted', x)),
-                        os.listdir('sorted') )
 
-# list_of_files = sorted(list_of_files,
-#                         key=lambda x: os.stat(os.path.join('sorted', x)).st_size)
-# print(list_of_files)
+# а вот этот код после того как добавить после join название папки
+# пишет полный путь, но в таком варианте у меня не работает сортировка
+# помогите разобраться что написать в import os чтобы код выше работал
+
 inputs = []
 for file in os.listdir('sorted'):
     if file.endswith('.txt'):
-        inputs.append(sorted(list_of_files,
-                        key=lambda x: os.stat(os.path.join('sorted', x)).st_size))
-print(inputs)
+        inputs.append(os.path.join('sorted', file))
+
 with open('merged_file.txt', 'w') as outfile:
-    for fname in list_of_files:
+    for fname in inputs:
         with open(fname, encoding="utf-8", errors='ignore') as infile:
             count = int()
             for line in infile:
